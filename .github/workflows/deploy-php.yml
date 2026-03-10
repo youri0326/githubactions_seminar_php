@@ -202,7 +202,7 @@ jobs:
     - name: Start CodeDeploy deployment
       run: |
         echo "Starting CodeDeploy deployment..."
-        
+
         # 1. jq を使って appspec.yml の中身を JSON 文字列として整形し、変数に格納
         APPSPEC_JSON=$(cat appspec.yml | jq -Rs .)
 
@@ -212,7 +212,7 @@ jobs:
           --application-name $CODEDEPLOY_APP \
           --deployment-group-name $CODEDEPLOY_GROUP \
           --deployment-config-name CodeDeployDefault.ECSAllAtOnce \
-          --revision revisionType=AppSpecContent,appSpecContent='{"content":'$APPSPEC_JSON'}' \
+          --revision revisionType=AppSpecContent,appSpecContent='{"content":'"$APPSPEC_JSON"'}' \
           --region ${REGION} \
           --query deploymentId \
           --output text)
