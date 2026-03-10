@@ -203,16 +203,25 @@ jobs:
       run: |
         echo "Starting CodeDeploy deployment..."
 
-        # 1. jq を使って appspec.yml の中身を JSON 文字列として整形し、変数に格納
-        APPSPEC_JSON=$(cat appspec.yml | jq -Rs .)
+        # appspec.yml を JSON文字列化
+        APPSPEC_CONTENT=$(jq -Rs . appspec.yml)
 
-        # 2. 変数を使ってデプロイコマンドを実行
-        # --revision の全体をシングルクォートで囲み、変数を展開します
+        # revision.json を作成
+        cat <<EOF > revision.json
+        {
+          "revisionType": "AppSpecContent",
+          "appSpecContent": {
+            "content": $APPSPEC_CONTENT
+          }
+        }
+        EOF
+
+        # deploy
         DEPLOY_ID=$(aws deploy create-deployment \
           --application-name $CODEDEPLOY_APP \
           --deployment-group-name $CODEDEPLOY_GROUP \
           --deployment-config-name CodeDeployDefault.ECSAllAtOnce \
-          --revision revisionType=AppSpecContent,appSpecContent='{"content":'"$APPSPEC_JSON"'}' \
+          --revision file://revision.json \
           --region ${REGION} \
           --query deploymentId \
           --output text)
