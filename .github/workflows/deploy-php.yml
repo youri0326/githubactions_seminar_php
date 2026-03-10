@@ -27,8 +27,8 @@ env:
   RDS_ENDPOINT: "db-yoshiike-0310.cnabwrjqs09i.ap-northeast-1.rds.amazonaws.com"
 
   # CodeDeploy設定
-  CODEDEPLOY_APP: "php-codedeploy-app-yoshiike-0310"
-  CODEDEPLOY_GROUP: "php-codedeploy-group-yoshiike-0310"
+  CODEDEPLOY_APP: "cicd-aws-codedeploy-php-yoshiike-0310"
+  CODEDEPLOY_GROUP: "cicd-aws-codedeploy-php-group"
 
   # IAMロールのARN（CloudFormationで作成したもの）
   AWS_ROLE_ARN: "arn:aws:iam::527151769671:role/GitHubActionsRole-yoshiike-0310"
