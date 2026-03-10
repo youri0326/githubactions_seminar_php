@@ -67,7 +67,7 @@ jobs:
     - name: Set AWS Account ID
       run: |
         ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
-        echo "ACCOUNT_ID=${ACCOUNT_ID} >> $GITHUB_ENV        
+        echo "ACCOUNT_ID=${ACCOUNT_ID}" >> $GITHUB_ENV        
 
     # --------------------------------------------------
     # ECRログイン
