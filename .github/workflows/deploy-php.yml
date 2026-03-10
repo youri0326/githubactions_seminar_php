@@ -186,6 +186,7 @@ jobs:
           --output text)
 
         echo ${TASK_DEF_ARN}
+        echo "TASK_DEF_ARN=${TASK_DEF_ARN}" >> $GITHUB_ENV
     # --------------------------------------------------
     # TaskDefinition ARNをappspecに反映
     # --------------------------------------------------
